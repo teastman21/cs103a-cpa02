@@ -239,15 +239,13 @@ app.get('/upsertDB',
   async (req,res,next) => {
     //await Course.deleteMany({})
     for (course of courses){
-      const {subject,coursenum,section,term}=course;
-      const num = getNum(coursenum);
-      course.num=num
-      course.suffix = coursenum.slice(num.length)
-      course.strTimes = times2str(course.times)
-      await Course.findOneAndUpdate({subject,coursenum,section,term},course,{upsert:true})
+      const {firstName,lastName,playerID,teamID}=course;
+      const n = firstName
+      course.firstName = firstName
+      await Course.findOneAndUpdate({firstName,lastName,playerID,teamID},course,{upsert:true})
     }
-    const num = await Course.find({}).count();
-    res.send("data uploaded: "+num)
+    const n = await Course.find({}).count();
+    res.send("data uploaded: "+n)
   }
 )
 
@@ -255,11 +253,11 @@ app.get('/upsertDB',
 app.post('/courses/bySubject',
   // show list of courses in a given subject
   async (req,res,next) => {
-    const {subject} = req.body;
-    const courses = await Course.find({subject:subject,independent_study:false}).sort({term:1,num:1,section:1})
+    const {firstName} = req.body;
+    const courses = await Course.find({firstName:firstName})
     
     res.locals.courses = courses
-    res.locals.strTimes = courses.strTimes
+    //res.locals.strTimes = courses.strTimes
     //res.json(courses)
     res.render('courselist')
   }
