@@ -15,7 +15,6 @@ Here we want a ul list with the instructor, coursenum, title, term
         const inst = course['firstName'];
          %>
       <tr class="mb-2"> 
-        <td><%= semester[term%10] %></td>
         <td>
             <a href="/courses/show/<%=course._id %>">
             <%=  course['playerID'] %>
