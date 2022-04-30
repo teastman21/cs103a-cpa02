@@ -11,4 +11,4 @@ var courseSchema = Schema( {
     lastName: String,
 } );
 
-module.exports = mongoose.model( 'players', courseSchema );
+module.exports = mongoose.model( 'Course', courseSchema );
