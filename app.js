@@ -241,7 +241,7 @@ app.get('/upsertDB',
     for (course of courses){
       const {firstName,lastName,playerID,teamID}=course;
       const n = firstName
-      course.firstName = firstName
+      course.n = n
       await Course.findOneAndUpdate({firstName,lastName,playerID,teamID},course,{upsert:true})
     }
     const n = await Course.find({}).count();
