@@ -25,7 +25,7 @@ const Schedule = require('./models/Schedule')
 // *********************************************************** //
 //  Loading JSON datasets
 // *********************************************************** //
-const courses = require('./public/data/courses20-21.json')
+const courses = require('./public/data/players.json')
 
 
 // *********************************************************** //
