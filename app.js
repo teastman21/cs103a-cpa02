@@ -239,10 +239,10 @@ app.get('/upsertDB',
   async (req,res,next) => {
     //await Course.deleteMany({})
     for (course of courses){
-      const {firstName,lastName,playerID,teamID}=course;
+      const {firstName,lastName,playerId,teamId}=course;
       const n = firstName
       course.n = n
-      await Course.findOneAndUpdate({firstName,lastName,playerID,teamID},course,{upsert:true})
+      await Course.findOneAndUpdate({firstName,lastName,playerId,teamId},course,{upsert:true})
     }
     const n = await Course.find({}).count();
     res.send("data uploaded: "+n)
