@@ -177,57 +177,6 @@ app.get('/todo',
   }
 )
 
-/* ************************
-  Functions needed for the course finder routes
-   ************************ */
-
-function getNum(coursenum){
-  // separate out a coursenum 103A into 
-  // a num: 103 and a suffix: A
-  i=0;
-  while (i<coursenum.length && '0'<=coursenum[i] && coursenum[i]<='9'){
-    i=i+1;
-  }
-  return coursenum.slice(0,i);
-}
-
-
-function times2str(times){
-  // convert a course.times object into a list of strings
-  // e.g ["Lecture:Mon,Wed 10:00-10:50","Recitation: Thu 5:00-6:30"]
-  if (!times || times.length==0){
-
-    return ["not scheduled"]
-  } else {
-    return times.map(x => time2str(x))
-  }
-  
-}
-function min2HourMin(m){
-  // converts minutes since midnight into a time string, e.g.
-  // 605 ==> "10:05"  as 10:00 is 60*10=600 minutes after midnight
-  const hour = Math.floor(m/60);
-  const min = m%60;
-  if (min<10){
-    return `${hour}:0${min}`;
-  }else{
-    return `${hour}:${min}`;
-  }
-}
-
-function time2str(time){
-  // creates a Times string for a lecture or recitation, e.g. 
-  //     "Recitation: Thu 5:00-6:30"
-  const start = time.start
-  const end = time.end
-  const days = time.days
-  const meetingType = time['type'] || "Lecture"
-  const location = time['building'] || ""
-
-  return `${meetingType}: ${days.join(",")}: ${min2HourMin(start)}-${min2HourMin(end)} ${location}`
-}
-
-
 
 /* ************************
   Loading (or reloading) the data into a collection
@@ -263,60 +212,6 @@ app.post('/courses/bySubject',
   }
 )
 
-app.get('/courses/show/:courseId',
-  // show all info about a course given its courseid
-  async (req,res,next) => {
-    const {courseId} = req.params;
-    const course = await Course.findOne({_id:courseId})
-    res.locals.course = course
-    res.locals.strTimes = courses.strTimes
-    //res.json(course)
-    res.render('course')
-  }
-)
-
-app.get('/courses/byInst/:email',
-  // show a list of all courses taught by a given faculty
-  async (req,res,next) => {
-    const email = req.params.email+"@brandeis.edu";
-    const courses = await Course.find({instructor:email,independent_study:false})
-    //res.json(courses)
-    res.locals.courses = courses
-    res.render('courselist')
-  } 
-)
-
-app.post('/courses/byInst',
-  // show courses taught by a faculty send from a form
-  async (req,res,next) => {
-    const email = req.body.email+"@brandeis.edu";
-    const courses = 
-       await Course
-               .find({instructor:email,independent_study:false})
-               .sort({term:1,num:1,section:1})
-    //res.json(courses)
-    res.locals.courses = courses
-    res.locals.strTimes = courses.strTimes
-    res.render('courselist')
-  }
-)
-
-app.post('/courses/byKeyword',
-  //show courses that contain a keyword
-  //attemp to find str that includes keyword: name: this.name.includes(keyword)
-  async (req, res, next) => {
-    const {keyword} = req.body;
-    var regex = new RegExp(keyword, "gi")
-    const courses = 
-        await Course
-                .find({name: regex}, {independent_study: false})
-                .sort({term:1, num:1,section:1})
-    res.locals.courses = courses
-    res.locals.strTimes = courses.strTimes
-    res.render('courselist')                    
-  }
-
-)
 
 app.use(isLoggedIn)
 
