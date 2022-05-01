@@ -254,7 +254,7 @@ app.post('/courses/bySubject',
   // show list of courses in a given subject
   async (req,res,next) => {
     const {firstName} = req.body;
-    const courses = await Course.find({firstName:firstName})
+    const courses = await Course.find({firstName:firstName}).sort({lastName:1,playerId:1,teamId:1})
     
     res.locals.courses = courses
     //res.locals.strTimes = courses.strTimes
