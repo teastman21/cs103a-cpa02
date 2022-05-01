@@ -18,11 +18,9 @@ NBA Players by name!
          %>
       <tr class="mb-2"> 
         <td>
-            <a href="/courses/show/<%=course._id %>">
-            <%=  course['playerID'] %>
-            <%=  course['teamID'] %>  
-
-            </a>
+            <% for (t of course.firstName){%>
+                <%= t %> <br>
+                <%}%>
         </td>
 
         <td>
