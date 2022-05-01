@@ -5,10 +5,10 @@ const ObjectId = Schema.Types.ObjectId;
 const Mixed = Schema.Types.Mixed;
 
 var courseSchema = Schema( {
-    firstName: Mixed,
-    lastName: Mixed,
-    playerID: Mixed,
-    teamID: Mixed,
+    firstName: String,
+    lastName: String,
+    playerID: Number,
+    teamID: Number,
 } );
 
 module.exports = mongoose.model( 'Course', courseSchema );
