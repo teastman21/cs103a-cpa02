@@ -3,15 +3,15 @@
         <span>
             <%= course.firstName %> 
             <%= course.lastName %> 
-            <%= course.playerID %>
-            <%= course.teamID %>
+            <%= course.playerId %>
+            <%= course.teamId %>
         </span>
         <strong><%= course.name %></strong>
 
         
     </div>
     <div class="mb-1">
-        <%=course.instructor%>
+        <%=course.firstName%>
     </div>
     <div><a href="/addCourse/<%= course['playerID'] %>">(add to schedule)</a></div>
     <div class="mb-1">
