@@ -12,7 +12,9 @@ NBA Players by name!
     </thead>
     <tbody></tbody>
     <% for (course of courses) {
-        const inst = course['firstName'];
+        const first = course['firstName'];
+        const last = course['lastName'];
+        const pid = course['playerID'];
          %>
       <tr class="mb-2"> 
         <td>
@@ -27,7 +29,7 @@ NBA Players by name!
           <strong><%= course.name %></strong>
         </td>
         <td>
-          <%= inst %>
+          <%= first + " " + last %> <br> <%= " ("+pid+")" %>
         </td>
       
     </tr>
